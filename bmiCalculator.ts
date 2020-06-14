@@ -11,7 +11,7 @@ const passBmiCalculatorArguments = (args: Array<string>): BmiCalculatorArguments
         return {
             height: Number(args[2]),
             weight: Number(args[3])
-        }
+        };
     } else {
         throw new Error('Provided values were not numbers');
     }
@@ -39,11 +39,11 @@ export const calculateBmi = (height: number, weight: number): string => {
     } else {
         return 'Obese Class III (Very severely obese)';
     }
-}
+};
 
 try {
     const { weight, height } = passBmiCalculatorArguments(process.argv);
     console.log(calculateBmi(height, weight));
 } catch(error) {
-    console.log('Error:', error.message)
+    // console.log('Error:', error);
 }

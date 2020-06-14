@@ -25,13 +25,13 @@ const passExerciseCalucatorArguments = (args: Array<string>): ExerciseCalculator
         return {
             targetHours,
             hoursPerDay
-        }
+        };
     } else {
         throw new Error('Provided values are not valid, they must be numbers.');
     }
-}
+};
 
-const calculateExercises = (
+export const calculateExercises = (
     dailyExerciseHours: Array<number>,
     amountOfDailyHours: number
 ): ExerciseCalculator => {
@@ -54,9 +54,9 @@ const calculateExercises = (
     const rating: number = (metric <= 0.02) ? 3 : (metric <= 0.15) ? 2 : 1;
 
     const ratingDescription: string = [
-        'very bad',
+        'bad',
         'not too bad but could be better',
-        'very good'
+        'good'
     ][rating - 1];
 
     const result: ExerciseCalculator = {
@@ -70,9 +70,9 @@ const calculateExercises = (
     };
 
     return result;
-}
+};
 
-let input: Array<string> = [];
+const input: Array<string> = [];
 for (let i = 0; process.argv[i] !== undefined; i++) {
     input.push(process.argv[i]);
 }
@@ -81,5 +81,5 @@ try {
     const { targetHours, hoursPerDay } = passExerciseCalucatorArguments(input);
     console.log(calculateExercises(hoursPerDay, targetHours));
 } catch(error) {
-    console.log('Error:', error.message);
+    // console.log('Error:', error);
 }
