@@ -17,7 +17,7 @@ const passBmiCalculatorArguments = (args: Array<string>): BmiCalculatorArguments
     }
 };
 
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
     const heightInMetres: number = height / 100;
 
     const bmi: number = weight / (heightInMetres * heightInMetres);
