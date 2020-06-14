@@ -1,3 +1,8 @@
+interface ExerciseCalculatorArguments {
+    targetHours: number;
+    hoursPerDay: Array<number>;
+}
+
 interface ExerciseCalculator {
     periodLength: number;
     trainingDays: number;
@@ -6,6 +11,24 @@ interface ExerciseCalculator {
     ratingDescription: string;
     target: number;
     average: number;
+}
+
+const passExerciseCalucatorArguments = (args: Array<string>): ExerciseCalculatorArguments => {
+    if (args.length < 4) throw new Error('Not enough arguments');
+
+    const haveNaN = args.slice(2).some(arg => isNaN(Number(arg)));
+
+    if (!haveNaN) {
+        const targetHours = Number(args[2]);
+        const hoursPerDay = args.slice(3).map(hours => Number(hours));
+
+        return {
+            targetHours,
+            hoursPerDay
+        }
+    } else {
+        throw new Error('Provided values are not valid, they must be numbers.');
+    }
 }
 
 const calculateExercises = (
@@ -49,4 +72,14 @@ const calculateExercises = (
     return result;
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+let input: Array<string> = [];
+for (let i = 0; process.argv[i] !== undefined; i++) {
+    input.push(process.argv[i]);
+}
+
+try {
+    const { targetHours, hoursPerDay } = passExerciseCalucatorArguments(input);
+    console.log(calculateExercises(hoursPerDay, targetHours));
+} catch(error) {
+    console.log('Error:', error.message);
+}
